@@ -31,8 +31,7 @@ public class UserService {
         return userRepository.findAll();
     }
 
-    // Fetch single user by ID
-    @Cacheable(value = "users", key = "#userId", unless = "#result == null")
+    // Fetch single user by ID (caching disabled)
     public Optional<UserModel> getUserById(Long userId) {
         return userRepository.findById(userId);
     }

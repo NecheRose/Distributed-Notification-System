@@ -32,6 +32,10 @@ public class PaginationMeta {
         return new PaginationMeta(1, 1, 1, 1, false, false);
     }
 
+    public static PaginationMeta emptyMeta() {
+        return new PaginationMeta(0, 0, 1, 0, false, false);
+    }
+
     // Getters and setters
     public int getTotal() { return total; }
     public void setTotal(int total) { this.total = total; }

@@ -3,6 +3,7 @@ package com.notification.hnguser.controller;
 import com.notification.hnguser.dto.ApiResponse;
 import com.notification.hnguser.dto.PaginationMeta;
 import com.notification.hnguser.dto.UserRequest;
+import com.notification.hnguser.dto.UserResponse;
 import com.notification.hnguser.model.UserModel;
 import com.notification.hnguser.service.UserService;
 import org.springframework.http.ResponseEntity;
@@ -86,26 +87,22 @@ public class UserController {
 
     // Get user by ID
     @GetMapping("/{userId}")
-    public ResponseEntity<ApiResponse<?>> getUserById(@PathVariable Long userId) {
-        Optional<UserModel> user = userService.getUserById(userId);
-
-        if (user.isPresent()) {
-            return ResponseEntity.ok(new ApiResponse<>(
-                    true,
-                    user.get(),
-                    null,
-                    "User found",
-                    null
-            ));
-        } else {
-            return ResponseEntity.status(404).body(new ApiResponse<>(
-                    false,
-                    null,
-                    "User not found",
-                    "No user exists with that ID",
-                    null
-            ));
-        }
+    public ResponseEntity<ApiResponse<UserResponse>> getUserById(@PathVariable Long userId) {
+        return userService.getUserById(userId)
+                .map(foundUser -> ResponseEntity.ok(new ApiResponse<>(
+                        true,
+                        UserResponse.from(foundUser),
+                        null,
+                        "User found",
+                        PaginationMeta.defaultMeta()
+                )))
+                .orElseGet(() -> ResponseEntity.status(404).body(new ApiResponse<>(
+                        false,
+                        null,
+                        "NOT_FOUND",
+                        "No user exists with that ID",
+                        PaginationMeta.emptyMeta()
+                )));
     }
 
     //Update user by ID
