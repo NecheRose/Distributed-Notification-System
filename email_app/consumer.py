@@ -39,8 +39,19 @@ class EmailConsumer:
                     durable=True
                 )
                 
-                self.channel.queue_declare(queue='email.queue', durable=True)
-                self.channel.queue_declare(queue='failed.queue', durable=True)
+                self.channel.queue_declare(
+                    queue='email.queue',
+                    durable=True,
+                    arguments={
+                        'x-dead-letter-exchange': 'dlx.notifications',
+                        'x-dead-letter-routing-key': 'dl.email.queue',
+                        'x-max-priority': 10
+                    }     
+                )
+                self.channel.queue_declare(
+                    queue='failed.queue',
+                    durable=True
+                )
                 
                 self.channel.queue_bind(
                     exchange='notifications.direct',

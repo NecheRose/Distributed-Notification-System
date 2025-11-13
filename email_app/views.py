@@ -1,5 +1,6 @@
 from rest_framework.decorators import api_view
 from django.http import JsonResponse
+from django.utils import timezone
 from .models import EmailLog
 from .utils import RateLimiter
 import logging

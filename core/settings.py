@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 import os
 import redis
+import sys
 from pathlib import Path
 from dotenv import load_dotenv
 
@@ -102,7 +103,7 @@ WSGI_APPLICATION = 'core.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.getenv('EMAIL_DB_NAME', 'email_service'),
+        'NAME': os.getenv('EMAIL_DB_NAME', 'email_service_db'),
         'USER': os.getenv('EMAIL_DB_USER', 'postgres'),
         'PASSWORD': os.getenv('EMAIL_DB_PASSWORD', 'postgres'),
         'HOST': os.getenv('EMAIL_DB_HOST', 'localhost'),
@@ -124,6 +125,15 @@ DATABASES = {
 #         'KEY_PREFIX': 'email_service'
 #     }
 # }
+
+if 'test' in sys.argv:
+    # Use local memory cache for tests to avoid Redis dependency
+    CACHES = {
+        'default': {
+            'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+            'LOCATION': 'unique-snowflake',
+        }
+    }
 
 # Redis Cloud Configuration
 CACHES = {
