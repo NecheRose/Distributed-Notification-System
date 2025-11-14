@@ -156,68 +156,9 @@ git clone https://github.com/NecheRose/distributed-notification-system.git
 cd distributed-notification-system
 ```
 
-2. **Configure Environment Variables**
-
-`API Gateway Service`
+2. **Configure Environment Variables for each service**
 ```bash
-PORT=
-NODE_ENV=development
-JWT_SECRET=your_jwt_secret_key_here
-REDIS_URL=
-RABBITMQ_URL=
-USER_SERVICE_URL=
-TEMPLATE_SERVICE_URL=
-CORRELATION_ID_HEADER=x-correlation-id
-RATE_LIMIT_WINDOW=
-RATE_LIMIT_MAX_REQUESTS=
-```
-
-`User Service`
-```bash
-PORT=
-NODE_ENV=development
-DATABASE_URL=
-REDIS_URL=
-JWT_SECRET=your_jwt_secret_key_here
-JWT_EXPIRY=
-CACHE_TTL=
-```
-
-`Email Service`
-```bash
-PORT=
-NODE_ENV=development
-RABBITMQ_URL=
-SMTP_HOST=smtp.gmail.com
-SMTP_PORT=587
-SMTP_USER=your_email@gmail.com
-SMTP_PASSWORD=your_app_password
-SMTP_FROM=noreply@yourapp.com
-TEMPLATE_SERVICE_URL=
-MAX_RETRY_ATTEMPTS=
-RETRY_DELAY_MS=
-```
-
-`Push Service`
-```bash
-PORT=
-NODE_ENV=development
-RABBITMQ_URL=
-FCM_SERVER_KEY=your_fcm_server_key
-FCM_PROJECT_ID=your_fcm_project_id
-TEMPLATE_SERVICE_URL=
-MAX_RETRY_ATTEMPTS=3
-RETRY_DELAY_MS=1000
-```
-
-`Template Service`
-```bash
-PORT=
-NODE_ENV=development
-DATABASE_URL=
-REDIS_URL=
-CACHE_TTL=
-DEFAULT_LANGUAGE=en
+cp .env.exampe
 ```
 
 ---
@@ -308,7 +249,7 @@ mvn test
 | API Gateway      | Python   | Django         |
 | Email Service    | Python   | Django         |
 | Push Service     | Node.js  | Fastify        |
-| Template Service | Java     | Spring Boot    |
+| Template Service | Python    | Django        |
 | User Service     | Java     | Spring Boot    |
 
 --- 
