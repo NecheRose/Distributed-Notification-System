@@ -1,0 +1,32 @@
+# Maven
+target/
+!.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**/target/
+!**/src/test/**/target/
+
+# IDE
+.idea/
+.vscode/
+*.iml
+*.ipr
+*.iws
+.DS_Store
+
+# Git
+.git/
+.gitignore
+
+# Documentation
+*.md
+HELP.md
+
+# Docker
+docker-compose.yml
+Dockerfile
+
+# Test files
+src/test/
+
+# Logs
+*.log
+
